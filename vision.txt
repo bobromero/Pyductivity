@@ -47,15 +47,12 @@ This will be used for all of the 3 things
 I found out about pickle, so I am going to try and make a data structure that
 will be perfect for this use case
 
-A list of 2 lists could work
-the first one will be incomplete
-the second can be completed
-
 I don't have to use 1 structure for all 3
 
 So for the weekly, I will do a list with an int index and a list
 for the daily, I will do a date and a list of strings
-for the todo, I will do a list of 2 lists like what was mentioned above
+for the todo, I am doing 1 list of tasks which will be a type that will be done
+or not
 
 I will need to do error checking with try catch, just in case the program gets
 terminated unexpectedly, it will still save
