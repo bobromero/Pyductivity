@@ -1,0 +1,44 @@
+I want an app that can
+1. Focus for the week
+2. What you plan to work on tomorrow
+3. Todo list with indefinite
+
+I want it to leverage motivation to make discipline easier
+
+The idea is to have it run in the bottom right box as a todo list and motivator. 
+I want it to be easy to use, easy to run, and motivating and encouraging
+
+I will create an alias for it
+
+The structure for the app is
+1 module for the
+- weekly focus
+- what you want to work on the next day so you don't have to think about it in 
+the morning
+- Todo list
+
+The weekly focus will be 1 thing to focus on from a given subject
+The subject could be something like communication
+so I would make a file in ./subjects called communication
+that would have a newline seperated list of things I want to focus on, with a 
+number of the top representing the current line we are working on
+Each week it will put the next item on the list
+I will make it repeat by default, but maybe add options for each subject later
+I could also do one of these for each month, so ill develop it to account for
+that
+
+What you plan to work on will just be a space in the app where you can look at
+yesterdays notes and write new ones for yourself tomorrow
+
+Basic todo list
+using a file storage system
+when an item is completed, it will be moved into the completed section
+you will be able to delete all completed tasks
+the completed section will be identified by the # being the only character in the
+line
+
+I will store the structure of the text files in memory first, and then when I
+write it to a file, it should be easy to go back and forth
+
+I will have a module to search files in a directory and return them in memory
+This will be used for all of the 3 things
