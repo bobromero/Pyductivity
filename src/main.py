@@ -1,4 +1,5 @@
 import weekly
+import daily
 
 # motivationa_quote = 
 weekly_reminder_list = weekly.display_weekly(0)
@@ -18,7 +19,7 @@ def main_path():
     choice = input(main_prompt)
 
     if choice == 'A' or choice == 'a':
-        pass
+        daily.daily_path()
 
     elif choice == 'B' or choice == 'b':
         pass

@@ -6,6 +6,7 @@ weekly_prompt = f'''
     A. Add an item to the weekly list 
     B. Remove an item from the weekly list
     C. List the items in the weekly list
+    D. Save
     Enter to go back
     '''
 
