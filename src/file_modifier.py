@@ -1,15 +1,17 @@
 import pickle
 
-'''
-weekly = [int,[strings]]
-daily = [date,[strings]]
-todo = [tasks] #not done, done
-'''
-
 
 def file_writer(filename, data):
-    with open(filename, 'wb') as file:
-        pickle.dump(data, file)
+    try:
+        print("saving...")
+        with open(filename, 'wb') as file:
+            pickle.dump(data, file)
+
+        print("saving succeded")
+        return
+    except:
+        print("an error occured while saving")
+
 
 
 def file_reader(filename):
