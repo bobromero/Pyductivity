@@ -2,7 +2,9 @@ from file_modifier import file_reader, file_writer
 import datetime
 
 
-format = [[1, datetime.date.today(),["value1","value2"]]]
+format = {
+    "date": ["Info1","Info2"],
+}
 
 daily_file = "../data/daily.pk"
 
@@ -17,53 +19,91 @@ def load_daily():
     return file_reader(daily_file)
 
 def save_daily(data):
-    file_writer(daily_file, data)   
+    file_writer(daily_file, data)
+
+def clean_daily(data):
+    data = {}
+    today = datetime.date.today()
+    yesterday = today - datetime.timedelta(days=1)
+    for key in data:
+        if key != str(today) or key != str(yesterday):
+            data.pop(key)
+    save_daily(data)
 
 def add_to_daily(data, info):
+    #date
+    #data
+    #info
+    #check to see if the date is already in the list and append to it
+    #if not add a new date to the list
+
     today = datetime.date.today()
-    if data[1][0] != today:
-        data[0] = data[1]
-        data[1] = [datetime.date.today(), info]
+    today = str(today)
+    if today in data:
+        data[today].append(info)
+        print("appended to ", today)
     else:
-        data[1][1].extend(info)
+        data[today] = [info]
+        print("added new date ", today)
+
+    save_daily(data)
+
+def check_date(data):
+    today = datetime.date.today()
+    today = str(today)
+    if today not in data:
+        value = input("Add a new message for today")
+        add_to_daily(data, value)
+        clean_daily(data)
+        save_daily(data)
+
+def print_daily(data):
+    for key in data:
+        print("Date:",key)
+        for item in data[key]:
+            print("\t",item, end=",\n")
 
 def remove_from_daily(data,index):
     data.pop(index)
 
 def daily_path():
-    value = " "
     daily_choice = " "
     daily_data = load_daily()
-    # if daily_data[1][0] != datetime.date.today():
-    #     add_to_daily(daily_data, [])
 
+    check_date(daily_data)
     while daily_choice != "":
- 
-        print("hello")
+        daily_choice = input(daily_prompt)
         if daily_choice == "A" or daily_choice == "a":
+            value = " "
             while value != "":
-                value = input("Enter what you want to do tomorrow\nPress enter to finish\n")
+                value = input("Enter what you want to do tomorrow:\n")
                 if len(value) <= 0:
                     print("nothing added")
                 else:
                     add_to_daily(daily_data, value)
                     print("added", value)
+
         if daily_choice == "B" or daily_choice == "b":
-            print(*daily_data)
+            print_daily(daily_data)
             try:
-                value = int(input("Enter the index of the item you want to remove\n"))
-                if type(value) == type(0):
-                    remove_from_daily(daily_data,value)
-                    print("removed ",value, " from the list\n")
+                print(daily_data)
+                change_date = input("today or yesterday\n")
+                if change_date == "today":
+                    change_date = str(datetime.date.today())
+                elif change_date == "yesterday":
+                    change_date = str(datetime.date.today() - datetime.timedelta(days=1))
+                else: 
+                    print("invalid date")
+                    continue
+                value = int(input("Enter the index of the value you want to remove\n"))
+                daily_data[change_date].pop(value)
+                print("removed ",value, " from the list\n")
             except TypeError:
                 print("couldn't process index, not deleting")
             except:
                 print("Error, could not delete at, ", value)
-            if daily_choice == "C" or daily_choice == "c":
-                print(*daily_data)
-            if daily_choice == "D" or daily_choice == "d":
-                save_daily(daily_data)
-
+        if daily_choice == "C" or daily_choice == "c":
+            print_daily(daily_data)
 
 if __name__ == "__main__":
     print("Ran weekly script as main")
@@ -73,9 +113,9 @@ if __name__ == "__main__":
     except:
         print(f"Error: could not load data from {daily_file}")
         print("Creating a new file")
-        yesterday = datetime.date.today() - datetime.timedelta(days=1)
-        data.append([yesterday, ["value"]])
-        data.append([datetime.date.today(), ["value"]])
+        data = format
+        add_to_daily(data, "value")
+        data.pop("date")
         save_daily(data)
     print(datetime.date.today())
     print(data)
