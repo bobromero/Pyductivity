@@ -6,7 +6,6 @@ weekly_prompt = f'''
     A. Add an item to the weekly list 
     B. Remove an item from the weekly list
     C. List the items in the weekly list
-    D. Save
     Enter to go back
     '''
 
@@ -51,6 +50,7 @@ def weekly_path():
             else:
                 add_to_weekly(weekly_data, value)
                 print("added", value)
+                save_weekly(weekly_data)
         if weekly_choice == "B" or weekly_choice == "b":
             print(*weekly_data)
             try:
@@ -58,6 +58,7 @@ def weekly_path():
                 if type(value) == type(0):
                     remove_from_weekly(weekly_data,value)
                     print("removed ",value, " from the list\n")
+                    save_weekly(weekly_data)
             except TypeError:
                 print("couldn't process index, not deleting")
             except:
@@ -66,14 +67,6 @@ def weekly_path():
         if weekly_choice == "C" or weekly_choice == "c":
             print(*weekly_data)
 
-        if weekly_choice == "D" or weekly_choice == "d":
-            try:
-                print("saving...")
-                save_weekly(weekly_data)
-                print("saving succeded")
-                return
-            except:
-                print("an error occured while saving")
 
 
 
