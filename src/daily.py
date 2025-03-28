@@ -1,25 +1,28 @@
-from file_modifier import file_reader, file_writer 
+from file_modifier import file_reader, file_writer
 import datetime
 
 
 format = {
-    "date": ["Info1","Info2"],
+    "date": ["Info1", "Info2"],
 }
 
 daily_file = "../data/daily.pk"
 
-daily_prompt = f'''
+daily_prompt = f"""
     A. Add a daily message for tomorrow
     B. Remove a daily message
     C. List the daily messages
     Enter to go back
-    '''
+    """
+
 
 def load_daily():
     return file_reader(daily_file)
 
+
 def save_daily(data):
     file_writer(daily_file, data)
+
 
 def clean_daily(data):
     data = {}
@@ -30,12 +33,13 @@ def clean_daily(data):
             data.pop(key)
     save_daily(data)
 
+
 def add_to_daily(data, info):
-    #date
-    #data
-    #info
-    #check to see if the date is already in the list and append to it
-    #if not add a new date to the list
+    # date
+    # data
+    # info
+    # check to see if the date is already in the list and append to it
+    # if not add a new date to the list
 
     today = datetime.date.today()
     today = str(today)
@@ -48,6 +52,7 @@ def add_to_daily(data, info):
 
     save_daily(data)
 
+
 def check_date(data):
     today = datetime.date.today()
     today = str(today)
@@ -57,14 +62,17 @@ def check_date(data):
         clean_daily(data)
         save_daily(data)
 
+
 def print_daily(data):
     for key in data:
-        print("Date:",key)
+        print("Date:", key)
         for item in data[key]:
-            print("\t",item, end=",\n")
+            print("\t", item, end=",\n")
 
-def remove_from_daily(data,index):
+
+def remove_from_daily(data, index):
     data.pop(index)
+
 
 def daily_path():
     daily_choice = " "
@@ -91,13 +99,15 @@ def daily_path():
                 if change_date == "today":
                     change_date = str(datetime.date.today())
                 elif change_date == "yesterday":
-                    change_date = str(datetime.date.today() - datetime.timedelta(days=1))
-                else: 
+                    change_date = str(
+                        datetime.date.today() - datetime.timedelta(days=1)
+                    )
+                else:
                     print("invalid date")
                     continue
                 value = int(input("Enter the index of the value you want to remove\n"))
                 daily_data[change_date].pop(value)
-                print("removed ",value, " from the list\n")
+                print("removed ", value, " from the list\n")
             except TypeError:
                 print("couldn't process index, not deleting")
             except:
@@ -105,9 +115,10 @@ def daily_path():
         if daily_choice == "C" or daily_choice == "c":
             print_daily(daily_data)
 
+
 if __name__ == "__main__":
     print("Ran weekly script as main")
-    data = [] 
+    data = []
     try:
         data = load_daily()
     except:
@@ -119,5 +130,3 @@ if __name__ == "__main__":
         save_daily(data)
     print(datetime.date.today())
     print(data)
-
-

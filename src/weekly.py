@@ -1,21 +1,22 @@
-from file_modifier import file_reader, file_writer 
+from file_modifier import file_reader, file_writer
 
 weekly_file = "../data/weekly.pk"
 
-weekly_prompt = f'''
+weekly_prompt = f"""
     A. Add an item to the weekly list 
     B. Remove an item from the weekly list
     C. List the items in the weekly list
     Enter to go back
-    '''
-
+    """
 
 
 def load_weekly():
     return file_reader(weekly_file)
 
+
 def save_weekly(data):
     file_writer(weekly_file, data)
+
 
 def display_weekly(index):
     data = []
@@ -28,14 +29,17 @@ def display_weekly(index):
     if len(data) < 1:
         return ""
     if len(data) <= index:
-        return string 
-    return string 
+        return string
+    return string
+
 
 def add_to_weekly(data, info):
     data.append([len(data), info])
-    
-def remove_from_weekly(data,index):
+
+
+def remove_from_weekly(data, index):
     data.pop(index)
+
 
 def weekly_path():
     value = ""
@@ -56,8 +60,8 @@ def weekly_path():
             try:
                 value = int(input("Enter the index of the item you want to remove\n"))
                 if type(value) == type(0):
-                    remove_from_weekly(weekly_data,value)
-                    print("removed ",value, " from the list\n")
+                    remove_from_weekly(weekly_data, value)
+                    print("removed ", value, " from the list\n")
                     save_weekly(weekly_data)
             except TypeError:
                 print("couldn't process index, not deleting")
@@ -68,11 +72,9 @@ def weekly_path():
             print(*weekly_data)
 
 
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     print("Ran weekly script as main")
-    data = [[0,"value"]]   
+    data = [[0, "value"]]
     try:
         data = load_weekly()
     except:
@@ -83,6 +85,3 @@ if __name__ == '__main__':
     # data.append([len(data),info])
     # print(data)
     # save_weekly(data)
-    
-
-    

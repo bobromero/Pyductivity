@@ -4,7 +4,7 @@ import pickle
 def file_writer(filename, data):
     try:
         print("saving...")
-        with open(filename, 'wb') as file:
+        with open(filename, "wb") as file:
             pickle.dump(data, file)
 
         print("saving succeded")
@@ -13,8 +13,6 @@ def file_writer(filename, data):
         print("an error occured while saving")
 
 
-
 def file_reader(filename):
-    with open(filename, 'rb') as file:
+    with open(filename, "rb") as file:
         return pickle.load(file)
-
