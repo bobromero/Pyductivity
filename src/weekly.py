@@ -53,20 +53,26 @@ def print_weekly(data):
         print(i, " ", data[2][i], end="\n")
 
 
+def clean_weekly_index(data):
+    if data[0] >= len(data[2]):
+        data[0] = len(data[2]) - 1
+
+
 def add_to_weekly(data, info):
     data[2].append(info)
-    data[0] = len(data[2])
+    clean_weekly_index(data)
 
 
 def remove_from_weekly(data, index):
     data[2].pop(index)
-    data[0] = len(data[2])
+    clean_weekly_index(data)
 
 
 def weekly_path():
     value = ""
     weekly_choice = " "
     weekly_data = load_weekly()
+    clean_weekly_index(weekly_data)
     while weekly_choice != "":
         weekly_choice = input(weekly_prompt)
         if weekly_choice == "A" or weekly_choice == "a":
@@ -104,4 +110,5 @@ if __name__ == "__main__":
         print(f"Error: could not load data from {weekly_file}")
         print("Creating a new list")
     print(data)
+    clean_weekly_index(data)
     save_weekly(data)

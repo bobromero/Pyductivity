@@ -1,13 +1,21 @@
 import weekly
 import daily
 
+
 # motivationa_quote =
-weekly_reminder_list = weekly.display_weekly()
+def get_weekly_reminder():
+    try:
+        weekly_focus = weekly.display_weekly()
+    except:
+        weekly_focus = "weekly reminder not set"
+    return weekly_focus
+
+
 main_prompt = f"""
     Welcome to Pyductivity!
     motivational_quote
     This week, remember to focus on
-    {weekly_reminder_list}
+    {get_weekly_reminder()}
     A. Today's notes
     B. Todo Lists
     C. Weekly Reminders    
@@ -16,23 +24,27 @@ main_prompt = f"""
 
 
 def main_path():
-    choice = input(main_prompt)
+    try:
+        choice = input(main_prompt)
+        if choice == "A" or choice == "a":
+            daily.daily_path()
 
-    if choice == "A" or choice == "a":
-        daily.daily_path()
+        elif choice == "B" or choice == "b":
+            pass
 
-    elif choice == "B" or choice == "b":
-        pass
+        elif choice == "C" or choice == "c":
+            weekly.weekly_path()
+        elif choice == "":
+            exit()
+        else:
+            print("invalid input: try again")
+    except KeyboardInterrupt:
+        print("\n")
+        exit()
+    except Exception as e:
+        print("exiting", e)
+        exit()
 
-    elif choice == "C" or choice == "c":
-        weekly.weekly_path()
-    elif choice == "":
-        return -1
-    else:
-        print("invalid input: try again")
-    return 0
 
-
-val = 0
-while val >= 0:
-    val = main_path()
+while True:
+    main_path()
