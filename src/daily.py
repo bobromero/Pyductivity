@@ -25,14 +25,15 @@ def save_daily(data):
 
 
 def clean_daily(data):
+    tomorrow = datetime.date.today() + datetime.timedelta(days=1)
     today = datetime.date.today()
-    yesterday = today - datetime.timedelta(days=1)
+    save = False
     for key in data:
-        print(key)
-    for key in data:
-        if key != str(today) and key != str(yesterday):
+        if key != str(today) and key != str(tomorrow):
             data.pop(key)
-    save_daily(data)
+            save = True
+    if save:
+        save_daily(data)
 
 
 def add_to_daily(data, info):
@@ -42,22 +43,22 @@ def add_to_daily(data, info):
     # check to see if the date is already in the list and append to it
     # if not add a new date to the list
 
-    today = datetime.date.today()
-    today = str(today)
-    if today in data:
-        data[today].append(info)
-        print("appended to ", today)
+    tomorrow = datetime.date.today() + datetime.timedelta(days=1)
+    tomorrow = str(tomorrow)
+    if tomorrow in data:
+        data[tomorrow].append(info)
+        print("appended to ", tomorrow)
     else:
-        data[today] = [info]
-        print("added new date ", today)
+        data[tomorrow] = [info]
+        print("added new date ", tomorrow)
 
     save_daily(data)
 
 
 def check_date(data):
-    today = datetime.date.today()
-    today = str(today)
-    if today not in data:
+    tomorrow = datetime.date.today() + datetime.timedelta(days=1)
+    tomorrow = str(tomorrow)
+    if tomorrow not in data:
         value = input("Add a new message for tomorrow\n")
         add_to_daily(data, value)
 
@@ -65,8 +66,8 @@ def check_date(data):
 def print_daily(data):
     for key in data:
         print("Date:", key)
-        for item in data[key]:
-            print("\t", item, end=",\n")
+        for i in range(len(data[key])):
+            print(i, "\t", data[key][i], end=",\n")
 
 
 def remove_from_daily(data, index):
@@ -95,13 +96,16 @@ def daily_path():
         if daily_choice == "B" or daily_choice == "b":
             print_daily(daily_data)
             try:
-                print(daily_data)
-                change_date = input("today or yesterday\n")
+                change_date = input("today or tomorrow\n")
                 if change_date == "today":
-                    change_date = str(datetime.date.today())
-                elif change_date == "yesterday":
+                    if str(datetime.date.today()) in daily_data:
+                        change_date = str(datetime.date.today())
+                    else:
+                        print("no data for today")
+                        continue
+                elif change_date == "tomorrow":
                     change_date = str(
-                        datetime.date.today() - datetime.timedelta(days=1)
+                        datetime.date.today() + datetime.timedelta(days=1)
                     )
                 else:
                     print("invalid date")
