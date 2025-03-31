@@ -19,8 +19,17 @@ def save_weekly(data):
     file_writer(weekly_file, data)
 
 
-def clean_weekly(data):
-    pass
+def weekly_setup():
+    isocalendar = datetime.date.today().isocalendar()
+    data = [0, isocalendar.week, ["Do more work"]]
+    try:
+        data = load_weekly()
+    except:
+        print(f"Error: could not load data from {weekly_file}")
+        print("Creating a new list")
+    print(data)
+    clean_weekly_index(data)
+    save_weekly(data)
 
 
 def weekly_index(data):
@@ -102,13 +111,4 @@ def weekly_path():
 
 if __name__ == "__main__":
     print("Ran weekly script as main")
-    isocalendar = datetime.date.today().isocalendar()
-    data = [0, isocalendar.week, ["data"]]
-    try:
-        data = load_weekly()
-    except:
-        print(f"Error: could not load data from {weekly_file}")
-        print("Creating a new list")
-    print(data)
-    clean_weekly_index(data)
-    save_weekly(data)
+    weekly_setup()

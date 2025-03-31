@@ -27,13 +27,26 @@ def main_path():
     try:
         choice = input(main_prompt)
         if choice == "A" or choice == "a":
-            daily.daily_path()
+            try:
+                daily.daily_path()
+            except FileNotFoundError:
+                print("daily file not found, setting up file")
+                daily.daily_setup()
+                daily.daily_path()
 
         elif choice == "B" or choice == "b":
-            pass
+            try:
+                pass
+            except FileNotFoundError:
+                print("todo file not found, setting up file")
 
         elif choice == "C" or choice == "c":
-            weekly.weekly_path()
+            try:
+                weekly.weekly_path()
+            except FileNotFoundError:
+                print("weekly file not found, setting up file")
+                weekly.weekly_setup()
+                weekly.weekly_path()
         elif choice == "":
             exit()
         else:

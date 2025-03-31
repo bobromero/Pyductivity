@@ -24,6 +24,21 @@ def save_daily(data):
     file_writer(daily_file, data)
 
 
+def daily_setup():
+    data = []
+    try:
+        data = load_daily()
+    except:
+        print(f"Error: could not load data from {daily_file}")
+        print("Creating a new file")
+        data = format
+        add_to_daily(data, "Do more work")
+        data.pop("date")
+        save_daily(data)
+    print(datetime.date.today())
+    print(data)
+
+
 def clean_daily(data):
     tomorrow = datetime.date.today() + datetime.timedelta(days=1)
     today = datetime.date.today()
@@ -123,15 +138,4 @@ def daily_path():
 
 if __name__ == "__main__":
     print("Ran weekly script as main")
-    data = []
-    try:
-        data = load_daily()
-    except:
-        print(f"Error: could not load data from {daily_file}")
-        print("Creating a new file")
-        data = format
-        add_to_daily(data, "value")
-        data.pop("date")
-        save_daily(data)
-    print(datetime.date.today())
-    print(data)
+    daily_setup()
