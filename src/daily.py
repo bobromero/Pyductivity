@@ -25,12 +25,14 @@ def save_daily(data):
 
 
 def clean_daily(data):
-    data = {}
     today = datetime.date.today()
     yesterday = today - datetime.timedelta(days=1)
     for key in data:
-        if key != str(today) or key != str(yesterday):
+        print(key)
+    for key in data:
+        if key != str(today) and key != str(yesterday):
             data.pop(key)
+    print("3")
     save_daily(data)
 
 
@@ -57,10 +59,8 @@ def check_date(data):
     today = datetime.date.today()
     today = str(today)
     if today not in data:
-        value = input("Add a new message for today")
+        value = input("Add a new message for tomorrow\n")
         add_to_daily(data, value)
-        clean_daily(data)
-        save_daily(data)
 
 
 def print_daily(data):
@@ -79,6 +79,8 @@ def daily_path():
     daily_data = load_daily()
 
     check_date(daily_data)
+    clean_daily(daily_data)
+
     while daily_choice != "":
         daily_choice = input(daily_prompt)
         if daily_choice == "A" or daily_choice == "a":
