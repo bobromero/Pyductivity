@@ -2,7 +2,7 @@ import weekly
 import daily
 
 # motivationa_quote =
-weekly_reminder_list = weekly.display_weekly(0)
+weekly_reminder_list = weekly.display_weekly()
 main_prompt = f"""
     Welcome to Pyductivity!
     motivational_quote

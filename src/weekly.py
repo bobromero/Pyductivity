@@ -1,4 +1,5 @@
 from file_modifier import file_reader, file_writer
+import datetime
 
 weekly_file = "../data/weekly.pk"
 
@@ -18,27 +19,48 @@ def save_weekly(data):
     file_writer(weekly_file, data)
 
 
-def display_weekly(index):
+def clean_weekly(data):
+    pass
+
+
+def weekly_index(data):
+    isocalendar = datetime.date.today().isocalendar()
+
+    def change_week_data():
+        data[1] = isocalendar.week
+        data[0] += 1
+        if data[0] >= len(data[2]):
+            data[0] %= len(data[2]) - 1
+
+    if data[1] != isocalendar.week:
+        # the week has changed
+        change_week_data()
+
+
+def display_weekly():
     data = []
     try:
-        data = load_weekly()[index]
+        data = load_weekly()
     except:
-        print(f"couldn't load weekly at {index}")
+        print(f"couldn't load weekly")
 
-    string = data[1]
-    if len(data) < 1:
-        return ""
-    if len(data) <= index:
-        return string
-    return string
+    weekly_index(data)
+    return data[2][data[0]]
+
+
+def print_weekly(data):
+    for i in range(len(data[2])):
+        print(i, " ", data[2][i], end="\n")
 
 
 def add_to_weekly(data, info):
-    data.append([len(data), info])
+    data[2].append(info)
+    data[0] = len(data[2])
 
 
 def remove_from_weekly(data, index):
-    data.pop(index)
+    data[2].pop(index)
+    data[0] = len(data[2])
 
 
 def weekly_path():
@@ -56,7 +78,7 @@ def weekly_path():
                 print("added", value)
                 save_weekly(weekly_data)
         if weekly_choice == "B" or weekly_choice == "b":
-            print(*weekly_data)
+            print_weekly(weekly_data)
             try:
                 value = int(input("Enter the index of the item you want to remove\n"))
                 if type(value) == type(0):
@@ -69,19 +91,17 @@ def weekly_path():
                 print("Error, could not delete at, ", value)
 
         if weekly_choice == "C" or weekly_choice == "c":
-            print(*weekly_data)
+            print_weekly(weekly_data)
 
 
 if __name__ == "__main__":
     print("Ran weekly script as main")
-    data = [[0, "value"]]
+    isocalendar = datetime.date.today().isocalendar()
+    data = [0, isocalendar.week, ["data"]]
     try:
         data = load_weekly()
     except:
         print(f"Error: could not load data from {weekly_file}")
         print("Creating a new list")
     print(data)
-    # info = input("enter a weekly reminder\n")
-    # data.append([len(data),info])
-    # print(data)
-    # save_weekly(data)
+    save_weekly(data)
