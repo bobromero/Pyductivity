@@ -32,7 +32,6 @@ def clean_daily(data):
     for key in data:
         if key != str(today) and key != str(yesterday):
             data.pop(key)
-    print("3")
     save_daily(data)
 
 
