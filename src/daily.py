@@ -10,7 +10,7 @@ format = {
 daily_file = "../data/daily.pk"
 
 daily_prompt = f"""
-    Welcome to the your daily messages!
+    Enter a choice:
 
     A. Add a daily message for tomorrow
     B. Remove a daily message
@@ -84,11 +84,10 @@ def check_date(data):
 
 
 def print_daily(data):
-    subprocess.run(["clear"])
     for key in data:
-        print("Date:", key)
+        print("\tDate:", key)
         for i in range(len(data[key])):
-            print(i, "\t", data[key][i], end=",\n")
+            print("\t", i + 1, ":", data[key][i], end="\n")
 
 
 def remove_from_daily(data, index):
@@ -97,14 +96,21 @@ def remove_from_daily(data, index):
 
 def daily_path():
     subprocess.run(["clear"])
+
     daily_choice = " "
     daily_data = load_daily()
 
     check_date(daily_data)
     clean_daily(daily_data)
-    print_daily(daily_data)
 
     while daily_choice != "":
+        subprocess.run(["clear"])
+        print(
+            """
+    Welcome to the your daily messages!
+        """
+        )
+        print_daily(daily_data)
         daily_choice = input(daily_prompt)
         if daily_choice == "A" or daily_choice == "a":
             value = " "

@@ -5,6 +5,8 @@ import datetime
 weekly_file = "../data/weekly.pk"
 
 weekly_prompt = f"""
+    Enter a choice:
+
     A. Add an item to the weekly list 
     B. Remove an item from the weekly list
     Enter to go back
@@ -58,9 +60,8 @@ def display_weekly():
 
 
 def print_weekly(data):
-    subprocess.run(["clear"])
     for i in range(len(data[2])):
-        print(i, " ", data[2][i], end="\n")
+        print("\t", i + 1, ":", data[2][i], end="\n")
 
 
 def clean_weekly_index(data):
@@ -80,6 +81,12 @@ def remove_from_weekly(data, index):
 
 def weekly_path():
     subprocess.run(["clear"])
+
+    print(
+        """
+    Welcome to the your weekly focuses!
+        """
+    )
     value = ""
     weekly_choice = " "
     weekly_data = load_weekly()
