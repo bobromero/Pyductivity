@@ -1,4 +1,5 @@
 from file_modifier import file_reader, file_writer
+import subprocess
 import datetime
 
 
@@ -9,9 +10,10 @@ format = {
 daily_file = "../data/daily.pk"
 
 daily_prompt = f"""
+    Welcome to the your daily messages!
+
     A. Add a daily message for tomorrow
     B. Remove a daily message
-    C. List the daily messages
     Enter to go back
     """
 
@@ -43,10 +45,13 @@ def clean_daily(data):
     tomorrow = datetime.date.today() + datetime.timedelta(days=1)
     today = datetime.date.today()
     save = False
+    to_remove = []
     for key in data:
         if key != str(today) and key != str(tomorrow):
-            data.pop(key)
+            to_remove.append(key)
             save = True
+    for x in to_remove:
+        data.pop(x)
     if save:
         save_daily(data)
 
@@ -79,6 +84,7 @@ def check_date(data):
 
 
 def print_daily(data):
+    subprocess.run(["clear"])
     for key in data:
         print("Date:", key)
         for i in range(len(data[key])):
@@ -90,11 +96,13 @@ def remove_from_daily(data, index):
 
 
 def daily_path():
+    subprocess.run(["clear"])
     daily_choice = " "
     daily_data = load_daily()
 
     check_date(daily_data)
     clean_daily(daily_data)
+    print_daily(daily_data)
 
     while daily_choice != "":
         daily_choice = input(daily_prompt)
@@ -132,8 +140,6 @@ def daily_path():
                 print("couldn't process index, not deleting")
             except:
                 print("Error, could not delete at, ", value)
-        if daily_choice == "C" or daily_choice == "c":
-            print_daily(daily_data)
 
 
 if __name__ == "__main__":

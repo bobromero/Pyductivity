@@ -1,4 +1,5 @@
 from file_modifier import file_reader, file_writer
+import subprocess
 import datetime
 
 weekly_file = "../data/weekly.pk"
@@ -6,7 +7,6 @@ weekly_file = "../data/weekly.pk"
 weekly_prompt = f"""
     A. Add an item to the weekly list 
     B. Remove an item from the weekly list
-    C. List the items in the weekly list
     Enter to go back
     """
 
@@ -58,6 +58,7 @@ def display_weekly():
 
 
 def print_weekly(data):
+    subprocess.run(["clear"])
     for i in range(len(data[2])):
         print(i, " ", data[2][i], end="\n")
 
@@ -78,10 +79,12 @@ def remove_from_weekly(data, index):
 
 
 def weekly_path():
+    subprocess.run(["clear"])
     value = ""
     weekly_choice = " "
     weekly_data = load_weekly()
     clean_weekly_index(weekly_data)
+    print_weekly(weekly_data)
     while weekly_choice != "":
         weekly_choice = input(weekly_prompt)
         if weekly_choice == "A" or weekly_choice == "a":
@@ -104,9 +107,6 @@ def weekly_path():
                 print("couldn't process index, not deleting")
             except:
                 print("Error, could not delete at, ", value)
-
-        if weekly_choice == "C" or weekly_choice == "c":
-            print_weekly(weekly_data)
 
 
 if __name__ == "__main__":

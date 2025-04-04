@@ -1,4 +1,5 @@
 import weekly
+import subprocess
 import daily
 
 
@@ -25,6 +26,7 @@ main_prompt = f"""
 
 def main_path():
     try:
+        subprocess.run(["clear"])
         choice = input(main_prompt)
         if choice == "A" or choice == "a":
             try:
