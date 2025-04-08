@@ -1,6 +1,9 @@
 #pickle save files
 *.pk
 
+src/logs.txt
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
