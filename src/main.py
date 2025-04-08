@@ -14,9 +14,11 @@ def get_weekly_reminder():
 
 main_prompt = f"""
     Welcome to Pyductivity!
-    motivational_quote
+
     This week, remember to focus on
+
     {get_weekly_reminder()}
+
     A. Today's notes
     B. Todo Lists
     C. Weekly Reminders    

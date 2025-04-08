@@ -115,7 +115,7 @@ def daily_path():
         if daily_choice == "A" or daily_choice == "a":
             value = " "
             while value != "":
-                value = input("Enter what you want to do tomorrow:\n")
+                value = input("    Enter what you want to do tomorrow:\n")
                 if len(value) <= 0:
                     print("nothing added")
                 else:

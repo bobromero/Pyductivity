@@ -95,7 +95,7 @@ def weekly_path():
     while weekly_choice != "":
         weekly_choice = input(weekly_prompt)
         if weekly_choice == "A" or weekly_choice == "a":
-            value = input("Enter an item to add on the list\n")
+            value = input("    Enter an item to add on the list\n")
             if len(value) <= 0:
                 print("nothing added")
             else:
@@ -105,7 +105,9 @@ def weekly_path():
         if weekly_choice == "B" or weekly_choice == "b":
             print_weekly(weekly_data)
             try:
-                value = int(input("Enter the index of the item you want to remove\n"))
+                value = int(
+                    input("    Enter the index of the item you want to remove\n")
+                )
                 if type(value) == type(0):
                     remove_from_weekly(weekly_data, value)
                     print("removed ", value, " from the list\n")
