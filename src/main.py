@@ -8,7 +8,7 @@ def get_weekly_reminder():
     try:
         weekly_focus = weekly.display_weekly()
     except:
-        weekly_focus = "weekly reminder not set"
+        weekly_focus = "Set your weekly focuses!"
     return weekly_focus
 
 
@@ -17,7 +17,7 @@ main_prompt = f"""
 
     This week, remember to focus on
 
-    {get_weekly_reminder()}
+    {' '.join(map(str, get_weekly_reminder()))}
 
     A. Today's notes
     B. Todo Lists
@@ -49,7 +49,7 @@ def main_path():
                 weekly.weekly_path()
             except FileNotFoundError:
                 print("weekly file not found, setting up file")
-                weekly.weekly_setup()
+                weekly.weekly_setup("weekly")
                 weekly.weekly_path()
         elif choice == "":
             exit()
