@@ -1,4 +1,4 @@
-from file_modifier import file_reader, file_writer
+from file_modifier import file_reader, file_writer, create_weekly_category
 from os import listdir
 import subprocess
 import datetime
@@ -49,7 +49,8 @@ def save_weekly(weekly_category, data):
     try:
         weekly_file = weekly_dir + weekly_category + "/weekly.pk"
     except:
-        print(f"Error: could not load data from {weekly_category}")
+        print(f"Error: could not write data to {weekly_category}")
+
         return
     file_writer(weekly_file, data)
 
@@ -64,6 +65,7 @@ def weekly_setup(weekly_category="weekly"):
         print("Creating a new list")
     print(data)
     clean_weekly_index(data)
+    create_weekly_category(weekly_category)
     save_weekly(weekly_category, data)
 
 
@@ -102,6 +104,7 @@ def display_weekly():
     for d in data:
         weekly_index(d)
         subjects.append(d[2][d[0]])
+        subjects.append("\n   ")
     return subjects
 
 
@@ -182,13 +185,17 @@ def weekly_path():
             except:
                 print("Error, could not delete at, ", value)
         if weekly_choice == "C" or weekly_choice == "c":
-            category_choice = input(category_prompt)
+            category_choice = " "
             while category_choice != "":
-                if weekly_choice == "A" or weekly_choice == "a":
-                    pass
-                if weekly_choice == "B" or weekly_choice == "b":
-                    pass
-                if weekly_choice == "C" or weekly_choice == "c":
+                print_weekly_categories()
+                category_choice = input(category_prompt)
+                if category_choice == "A" or category_choice == "a":
+                    cat = input("    Enter a category name: ")
+                    weekly_setup(cat)
+                if category_choice == "B" or category_choice == "b":
+
+                    category_choice = input(category_prompt)
+                if category_choice == "C" or category_choice == "c":
                     pass
 
 

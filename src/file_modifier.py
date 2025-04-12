@@ -1,4 +1,5 @@
 import pickle
+import os
 
 
 def file_writer(filename, data):
@@ -16,3 +17,17 @@ def file_writer(filename, data):
 def file_reader(filename):
     with open(filename, "rb") as file:
         return pickle.load(file)
+
+
+def create_weekly_category(weekly_category):
+    weekly_path = "../data/weekly"
+    weekly_file = "weekly.pk"
+    try:
+        os.mkdir(weekly_path + "/" + weekly_category)
+        weekly_file = f"{weekly_path}/{weekly_category}/weekly.pk"
+        with open(weekly_file, "wb") as file:
+            pickle.dump([], file)
+        return weekly_file
+    except:
+        print(f"Error: could not create {weekly_category}")
+    return weekly_category
