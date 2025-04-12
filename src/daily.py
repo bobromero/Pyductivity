@@ -140,7 +140,7 @@ def daily_path():
                     print("invalid date")
                     continue
                 value = int(input("Enter the index of the value you want to remove\n"))
-                daily_data[change_date].pop(value)
+                daily_data[change_date].pop(value - 1)
                 print("removed ", value, " from the list\n")
             except TypeError:
                 print("couldn't process index, not deleting")
