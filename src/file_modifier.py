@@ -31,3 +31,17 @@ def create_weekly_category(weekly_category):
     except:
         print(f"Error: could not create {weekly_category}")
     return weekly_category
+
+
+def create_todo_category(todo_category):
+    todo_path = "../data/todo"
+    todo_file = "todo.pk"
+    try:
+        os.mkdir(todo_path + "/" + todo_category)
+        todo_file = f"{todo_path}/{todo_category}/todo.pk"
+        with open(todo_file, "wb") as file:
+            pickle.dump([], file)
+        return todo_file
+    except:
+        print(f"Error: could not create {todo_category}")
+    return todo_category

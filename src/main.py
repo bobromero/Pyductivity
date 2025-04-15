@@ -1,6 +1,8 @@
 import weekly
-import subprocess
+import todo
 import daily
+import os
+import subprocess
 
 
 # motivationa_quote =
@@ -40,15 +42,19 @@ def main_path():
 
         elif choice == "B" or choice == "b":
             try:
-                pass
+                todo.todo_path()
             except FileNotFoundError:
                 print("todo file not found, setting up file")
+                os.mkdir("../data/todo")
+                todo.todo_setup("todo")
+                todo.todo_path()
 
         elif choice == "C" or choice == "c":
             try:
                 weekly.weekly_path()
             except FileNotFoundError:
                 print("weekly file not found, setting up file")
+                os.mkdir("../data/weekly")
                 weekly.weekly_setup("weekly")
                 weekly.weekly_path()
         elif choice == "":
