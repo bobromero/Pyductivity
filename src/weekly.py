@@ -1,5 +1,6 @@
 from file_modifier import file_reader, file_writer, create_weekly_category
 from os import listdir
+import shutil
 import subprocess
 import datetime
 
@@ -138,6 +139,24 @@ def remove_from_weekly(data, index):
     clean_weekly_index(data)
 
 
+def remove_weekly_category(category):
+    try:
+        shutil.rmtree(weekly_dir + category)
+    except:
+        print(f"Error: could not remove {category}")
+        return
+    print(f"Removed {category} from weekly categories")
+
+
+def change_weekly_category(old, new):
+    try:
+        shutil.move(weekly_dir + old, weekly_dir + new)
+    except:
+        print(f"Error: could not move {old} to {new}")
+        return
+    print(f"Moved {old} to {new}")
+
+
 def weekly_path():
     subprocess.run(["clear"])
 
@@ -193,10 +212,12 @@ def weekly_path():
                     cat = input("    Enter a category name: ")
                     weekly_setup(cat)
                 if category_choice == "B" or category_choice == "b":
-
-                    category_choice = input(category_prompt)
+                    cat = input("    Enter a category name: ")
+                    remove_weekly_category(cat)
                 if category_choice == "C" or category_choice == "c":
-                    pass
+                    cat1 = input("    Enter the existing categories name: ")
+                    cat2 = input("    Enter the new category name: ")
+                    change_weekly_category(cat1, cat2)
 
 
 if __name__ == "__main__":
