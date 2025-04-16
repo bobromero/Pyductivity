@@ -175,12 +175,15 @@ def todo_path():
 
     clean_todo_index(todo_data)
     while todo_choice != "":
+        subprocess.run(["clear"])
         print_todo_categories()
         value = ""
         todo_choice = input(todo_prompt)
         if todo_choice == "A" or todo_choice == "a":
+            subprocess.run(["clear"])
             print_todo_categories()
             category_choice = input("    Enter a category: ")
+            todo_data = load_todo(category_choice)
             value = input("    Enter an item to add on the list\n")
             if len(value) <= 0:
                 print("nothing added")
@@ -188,10 +191,13 @@ def todo_path():
                 add_to_todo(todo_data, value)
                 print("added", value)
                 save_todo(category_choice, todo_data)
+            subprocess.run(["clear"])
         if todo_choice == "B" or todo_choice == "b":
+            subprocess.run(["clear"])
             print_todo_categories()
             try:
                 category_choice = input("    Enter a category: ")
+                todo_data = load_todo(category_choice)
                 value = int(
                     input("    Enter the index of the item you want to remove\n")
                 )
@@ -203,9 +209,11 @@ def todo_path():
                 print("couldn't process index, not deleting")
             except:
                 print("Error, could not delete at, ", value)
+            subprocess.run(["clear"])
         if todo_choice == "C" or todo_choice == "c":
             category_choice = " "
             while category_choice != "":
+                subprocess.run(["clear"])
                 print_todo_categories()
                 category_choice = input(category_prompt)
                 if category_choice == "A" or category_choice == "a":
@@ -218,6 +226,7 @@ def todo_path():
                     cat1 = input("    Enter the existing categories name: ")
                     cat2 = input("    Enter the new category name: ")
                     change_todo_category(cat1, cat2)
+                subprocess.run(["clear"])
 
 
 if __name__ == "__main__":

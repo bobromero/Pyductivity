@@ -165,11 +165,8 @@ def weekly_path():
     print(
         f"""
     Welcome to the your weekly focuses!
-
-    {' '.join(map(str, weekly_categories))}
-        """
+"""
     )
-
     weekly_choice = " "
     weekly_data = load_weekly(weekly_categories[0])
 
@@ -179,8 +176,10 @@ def weekly_path():
         value = ""
         weekly_choice = input(weekly_prompt)
         if weekly_choice == "A" or weekly_choice == "a":
+            subprocess.run(["clear"])
             print_weekly_categories()
-            category_choice = input("    Enter a category: ")
+            category_choice = input("\n    Enter a category: ")
+            weekly_data = load_weekly(category_choice)
             value = input("    Enter an item to add on the list\n")
             if len(value) <= 0:
                 print("nothing added")
@@ -188,10 +187,13 @@ def weekly_path():
                 add_to_weekly(weekly_data, value)
                 print("added", value)
                 save_weekly(category_choice, weekly_data)
+            subprocess.run(["clear"])
         if weekly_choice == "B" or weekly_choice == "b":
+            subprocess.run(["clear"])
             print_weekly_categories()
             try:
-                category_choice = input("    Enter a category: ")
+                category_choice = input("\n    Enter a category: ")
+                weekly_data = load_weekly(category_choice)
                 value = int(
                     input("    Enter the index of the item you want to remove\n")
                 )
@@ -199,6 +201,7 @@ def weekly_path():
                     remove_from_weekly(weekly_data, value)
                     print("removed ", value, " from the list\n")
                     save_weekly(category_choice, weekly_data)
+                subprocess.run(["clear"])
             except TypeError:
                 print("couldn't process index, not deleting")
             except:
@@ -209,7 +212,7 @@ def weekly_path():
                 print_weekly_categories()
                 category_choice = input(category_prompt)
                 if category_choice == "A" or category_choice == "a":
-                    cat = input("    Enter a category name: ")
+                    cat = input("\n    Enter a category name: ")
                     weekly_setup(cat)
                 if category_choice == "B" or category_choice == "b":
                     cat = input("    Enter a category name: ")
